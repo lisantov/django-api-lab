@@ -6,10 +6,10 @@ class BookSerializer(serializers.ModelSerializer):
         model = Book
         fields = ['id', 'title', 'author', 'year', 'category', 'genre', 'publisher', 'cover', 'text']
 
-        def validate_year(self, year):
-            if year < 1000 or year > 9999:
-                raise serializers.ValidationError('Year must be between 1000 and 9999')
-            return year
+    def validate_year(self, value):
+        if value < 1000 or value > 9999:
+            raise serializers.ValidationError('Year must be between 1000 and 9999')
+        return value
 
 
 class AuthorSerializer(serializers.ModelSerializer):
