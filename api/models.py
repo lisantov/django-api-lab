@@ -12,7 +12,7 @@ class Category(models.Model):
 
 class Book(models.Model):
     title = models.CharField(max_length=100, verbose_name="Заголовок книги")
-    authors = models.ManyToManyField(Author, verbose_name="Автор книги")
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, verbose_name="Автор книги")
     year = models.IntegerField(max_length=4, verbose_name="Год выпуска")
     category = models.CharField(max_length=100, verbose_name="Категория книги")
     genre = models.CharField(max_length=100, verbose_name="Жанр книги")
@@ -21,7 +21,7 @@ class Book(models.Model):
     text = models.FileField(upload_to='books', verbose_name="Файл с книгой")
     def str(self):
         return self.title
-    # уникальность
+
     constraints = [
         models.UniqueConstraint(fields=['title', 'author', 'year', 'publisher'], name='unique_book'),
     ]
