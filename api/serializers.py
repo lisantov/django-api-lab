@@ -13,9 +13,16 @@ class BookSerializer(serializers.ModelSerializer):
 
 
 class AuthorSerializer(serializers.ModelSerializer):
+    books = serializers.SerializerMethodField()
+
     class Meta:
         model = Author
-        fields = ['id', 'name']
+        fields = ['id', 'name', 'biography', 'books']
+
+    def get_books(self, obj):
+        if obj.id:
+            return (book.id for book in Book.objects.filter(author=obj.id))
+        return []
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:

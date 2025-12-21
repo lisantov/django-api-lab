@@ -1,7 +1,8 @@
 from django.db import models
 
 class Author(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+    name = models.CharField(max_length=100, unique=True, verbose_name="Имя автора")
+    biography = models.TextField(verbose_name="Биография автора")
     def str(self):
         return self.name
 
@@ -19,6 +20,7 @@ class Book(models.Model):
     publisher = models.CharField(max_length=100, verbose_name="Издатель книги")
     cover = models.ImageField(upload_to='covers', null=True, blank=True, verbose_name="Обложка книги")
     text = models.FileField(upload_to='books', verbose_name="Файл с книгой", blank=True, null=True)
+    
     def str(self):
         return self.title
 
